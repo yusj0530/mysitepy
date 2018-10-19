@@ -22,6 +22,8 @@ def join(request):
     # models.insert(data_tuple)
     user.save()
 
+
+
     return HttpResponseRedirect('/user/joinsuccess')
 
 
@@ -61,9 +63,46 @@ def modifyform(request):
 
     return render(request, 'user/modifyform.html', data)
 
+def modify(request):
+
+    #user = User.objects.get(email=request.GET['email'])
+    authuser = request.session['authuser']
+    auth = authuser['id']
+    results=User.objects.all().filter(id=auth)
+    user = results[0]
+
+    user.password = request.POST['password']
+    user.gender = request.POST['gender']
+    user.save()
+
+    return HttpResponseRedirect('/')
+
 def checkemail(request):
     results = User.objects.filter(email = request.GET['email'])
 
     result = {'result' : len(results) == 0 } #True : not exist(사용가능)
     return JsonResponse(result)
+
+
+def deleteform(request):
+
+    authuser = request.session['authuser']
+    data = {'user': authuser}
+
+    return render(request, 'user/deleteform.html', data)
+
+
+
+def delete(request):
+
+    authuser = request.session['authuser']
+    authid = authuser['id']
+    authpass = authuser['password']
+    password = request.POST['password']
+
+    if password == authpass:
+        User.objects.filter(id=authid).filter(password=password).delete()
+        del request.session['authuser']
+
+    return HttpResponseRedirect('/')
 

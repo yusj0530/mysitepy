@@ -6,14 +6,31 @@ body			{ font:0.75em "맑은 고딕", 돋움, 굴림; text-align:center }
 ul, ol			{ list-style-type: none }
 
 /* layout */
-div#container	{ text-align:left; width:700px; margin:0 auto; background-color:#EEE }
-div#content		{ float:right; width:580px; background-color:#fff }
+div#container	{ text-align:left; width:700px; margin:0 auto; background-color:#FFFFD0 }
+div#content		{ float:right; width:580px; background-color:#FFFFE8 }
 div#navigation	{ float:left; width:120px;  }
 div#footer		{ clear:both; width:100% }
 
 /* header */
-div#header	h1				{ height:70px; line-height:70px; margin:0; padding-left:10px; color:#79B30B }
-div#header	h1 a			{ color:#79B30B; text-decoration:none } 
+div#header	h1				{ height:90px; line-height:110px; margin:10px; padding:10px 0 0 10px; color:#79B30B }
+div#header	h1 a			{
+    color:#79B30B; text-decoration:none;
+
+    display: block;
+    width: 120px;
+    height: 120px;
+    background-color: #0;
+    background-image: url('/assets/images/house.png');
+    background-repeat: no-repeat;
+    background-position: center ;
+    font-size: 0;
+    margin-top:10px;
+    margin-left:-20px;
+
+
+
+
+    }
 div#header	ul				{ height:20px; margin:0 20px 10px 0 } 
 div#header	li				{ float:right }
 div#header	li a 			{ color:#4F4F4F; font-weight:bold; margin-left:10px; text-decoration:none; }
