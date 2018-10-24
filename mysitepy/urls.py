@@ -46,11 +46,15 @@ urlpatterns = [
     path('board/', board_views.list),
     path('board/list', board_views.list),
     path('board/write', board_views.write),
+    path('board/replywrite', board_views.replywrite),
+    path('board/replyform', board_views.replyform),
+    path('board/reply', board_views.reply),
     path('board/add', board_views.add),
     path('board/delete', board_views.delete),
     path('board/view', board_views.view),
     path('board/view_modify', board_views.view_modify),
     path('board/modify', board_views.modify),
+    path('board/search', board_views.search),
 
 
 ]
