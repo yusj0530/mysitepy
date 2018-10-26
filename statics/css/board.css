@@ -42,7 +42,7 @@ input#kwd	{
 .tbl-ex th, 
 .tbl-ex td	{ 
 	padding:8px;
-	text-align:center; 	 
+	text-align:center;
 }
 	
 .tbl-ex th	{ 
@@ -55,7 +55,12 @@ input#kwd	{
 
 .tbl-ex td {
 	border-top:1px dotted #333;
-	border-bottom:1px dotted #333; 
+	border-bottom:1px dotted #333;
+}
+
+.tbl-ex td.td_a {
+	padding:8px;
+	text-align:left;
 }
 
 .board-form .tbl-ex td {

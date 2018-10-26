@@ -1,0 +1,37 @@
+ model delete
+[Delete]
+SQL)
+delete from guestbook where id=1 and password='1234'
+
+Python)
+# 내가 매핑했던것이 파라미터에 있다.
+#filter는 골라내는것 모든것에서 필터에있는걸 없애고 마지막 남은걸 삭제한다.
+Guestbook.objects.filter(id=1).filter(password= '1234').delete()
+
+[Select]
+SQL)
+select * from guestbook where id =1:
+
+select * from guestbook where first_name = '유':
+
+Python)
+#get은 가져오는것
+
+guestbook=Guestbook.objects.get(id =1)
+
+guestbook=Guestbook.objects.get(first_name='유')
+
+[Update]
+SQL)
+update user
+    set name='jhon',
+        email = 'sjy5537@gamil.com'
+        password = '1234'
+where id =1
+
+Python)
+user= User.objects.get(id=1)
+user.name='jhon'
+user.email='sjy5537@gamil.com'
+user.password='1234'
+user.save()
