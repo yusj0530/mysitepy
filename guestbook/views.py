@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -43,3 +43,21 @@ def delete(request):
     Guestbook.objects.filter(id=id).filter(password=password).delete()
 
     return HttpResponseRedirect('/guestbook')
+
+def ajax(request):
+    return render(request, 'guestbook/ajax.html')
+
+def api_list(request):
+    p=request.GET['p']
+    results_list=[]
+
+    page = (int(p)-1) * 5
+    results = Guestbook.objects.all().order_by('-id')[page:page+5]
+    results_dict =results.values()
+
+    for a in results_dict:
+        results_list.append(a)
+
+    data = {'result' : results_list}
+
+    return JsonResponse(data)

@@ -169,6 +169,35 @@ def delete(board):
 
 
 
+def  fetchList(page):
+    # 2. 커서 생성
+    try:
+        conn= connect()
+        cursor = conn.cursor(MySQLdb.cursors.DictCursor)
+
+        # 3. SQL문 실행
+        sql = '''
+          select *
+            from board
+             order by group_no desc, order_no asc
+             limit {}, 5
+            '''.format((int(page)-1) * 5)
+        cursor.execute(sql)
+        # 4. 결과 받아오기(fetch)
+        #  한 로우씩 넣어준다.
+        results = cursor.fetchall()
+           #return  count
+
+        # 5. 자원 정리
+        cursor.close()
+        conn.close()
+
+        return results
+
+    except MySQLdb.Error as e:
+        print('Error %d: %d' % (e.args[0], e.args[1]))
+        return  None
+
 def fetchone(id):
     try:
         conn = connect()

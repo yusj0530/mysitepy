@@ -54,7 +54,10 @@ urlpatterns = [
     path('board/view', board_views.view),
     path('board/view_modify', board_views.view_modify),
     path('board/modify', board_views.modify),
-    path('board/search', board_views.search),
+
+
+    path('guestbook/ajax', guestbook_views.ajax),
+    path('guestbook/api/list', guestbook_views.api_list),
 
 
 ]

@@ -1,8 +1,16 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
 from board import models
+
+def api_list(request):
+    page=request.GET['p']
+    results = models.fetchList(page)
+
+    response = {'result': 'success', 'data':results}
+    return JsonResponse(response)
+
 
 
 def list(request):
@@ -105,14 +113,9 @@ def view_modify(request):
 
     return HttpResponseRedirect('/board/view?id='+str(id))
 
+def api_list(request):
+    page = request.GET['p']
+    results = models.fetchList(page)
 
-
-
-def search(request):
-    kwd = request.POST['kwd']
-    results = models.fetchall()
-    data = {'search_list':results}
-
-    if kwd in results:
-        return render(request, 'board/search')
-
+    response = {'result':'success', 'data':results}
+    return JsonResponse(response)
