@@ -8,15 +8,19 @@
 var page = 0;
 var isEnd = false;
 
-var render = function(guestbook){
+var render = function(guestbook, mode){
 	var htmls ='<li><table>' +
 					'<tr><td></td><td>'+guestbook.name+
 					'</td><td>'+guestbook.reg_date+
 					'</td><td><a href="">삭제</a></td></tr>'+
 					'<tr><td colspan="4">'+ guestbook.content+'</td></tr>'+
 					'</table><br></li>';
-	$("#list").append(htmls);
-	};
+	if(mode == true){
+		$("#list").prepend(htmls)
+	}else {
+		$("#list").append(htmls);
+	}
+};
 
 
 var fetchList = function(){
@@ -37,7 +41,7 @@ var fetchList = function(){
 
 			//rendering
 			$(response.result).each(function(index, guestbook){
-				render(guestbook);
+				render(guestbook, false);
 			});
 
 			//check isEnd
@@ -64,7 +68,7 @@ $(function(){
 
 		var name = $('#input-name').val()
 		var password =$('#input-password').val()
-		var content = $('#input-content').val()
+		var content = $('#tx-content').val()
 
 
 		$.ajax({
@@ -76,7 +80,11 @@ $(function(){
 			 		 "&content="+ content +
 			 		 "&csrfmiddlewaretoken=" +$("input[name='csrfmiddlewaretoken']").val(),
 			success: function(response){
-				console.log(response)
+				render(response, true)
+				//폼 지우기
+				$("#form-add")[0].reset()
+
+
 			} ,
 			error: function(jqXHR, status, e){
 			console.error(status + ":" + e)
@@ -118,7 +126,7 @@ $(function(){
 							<td>비밀번호</td><td><input type="password" name="pass" id="input-password"></td>
 						</tr>
 						<tr>
-							<td colspan=4><textarea name="content" id="content" id="tx-content"></textarea></td>
+							<td colspan=4><textarea name="content" id="tx-content"></textarea></td>
 						</tr>
 						<tr>
 							<td colspan=4 align=right><input type="submit" VALUE=" 확인 "></td>
