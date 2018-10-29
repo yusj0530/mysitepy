@@ -68,19 +68,18 @@ def api_list(request):
 def api_add(request):
     guestbook = Guestbook()
 
-    guestbook.name = request.GET['name']
-    guestbook.password = request.GET['pass']
-    guestbook.content = request.GET['content']
+    guestbook.name = request.POST['name']
+    guestbook.password = request.POST['password']
+    guestbook.content = request.POST['content']
 
     guestbook.save()
 
-    #Newguestbook = guestbook.id
-
     results = Guestbook.objects.filter(id=guestbook.id)
 
-    l = [];
+    l = []
     for a in results.values():
         l.append(a)
+
 
     response = {'result' : 'success', 'data': l[0] }
 
