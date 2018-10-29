@@ -1,3 +1,5 @@
+import datetime
+
 from django.forms import model_to_dict
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
@@ -72,6 +74,15 @@ def api_add(request):
 
     guestbook.save()
 
-    response = {'result' : 'success', 'data': model_to_dict(guestbook) }
+    #Newguestbook = guestbook.id
+
+    results = Guestbook.objects.filter(id=guestbook.id)
+
+    l = [];
+    for a in results.values():
+        l.append(a)
+
+    response = {'result' : 'success', 'data': l[0] }
+
 
     return JsonResponse(response)
