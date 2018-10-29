@@ -9,7 +9,7 @@ var page = 0;
 var isEnd = false;
 
 var render = function(guestbook){
-	var htmls =' <li><table>' +
+	var htmls ='<li><table>' +
 					'<tr><td></td><td>'+guestbook.name+
 					'</td><td>'+guestbook.reg_date+
 					'</td><td><a href="">삭제</a></td></tr>'+
@@ -33,6 +33,8 @@ var fetchList = function(){
 		dataType: "json",
 		data: "",
 		success: function(response){
+			console.log(response)
+
 			//rendering
 			$(response.result).each(function(index, guestbook){
 				render(guestbook);
@@ -48,13 +50,37 @@ var fetchList = function(){
 			console.error(status + ":" + e);
 		}
 	});
+
+	console.log("position1");
+<!--    먼저나오므고 비동기통신 기다리지않고 실행 동기는 정지해있는것 blockiong -->
 }
 
+
+<!--$("#btn-fetch").click(function(){fetchList())};-->
+
 $(function(){
-	$("#btn-fetch").click(function(){
-		fetchList();
+	$("#form-add").submit(function(event){
+		event.preventDefault();
+
+		console.log("!!!!!!!");
 	});
+
+	$(window).scroll(function(){
+		var $window = $(this);
+		var scrollTop = $window.scrollTop();
+		var windowHeight = $window.height();
+		var documentHeight = $(document).height();
+
+		if( scrollTop + windowHeight +10 > documentHeight){
+			fetchList();
+		}
+	});
+
+	<!--첫번째 리스트 가져오기-->
+	fetchList();
+
 });
+
 
 
 </script>
@@ -65,8 +91,7 @@ $(function(){
 
 {% block content %}
 			<div id="guestbook">
-				<form action="/guestbook/api_list" method="post">
-					<input type="hidden" name="a" value="insert">
+				<form id="form-add" action="/guestbook/add" method="post">
 					<table>
 						<tr>
 							<td>이름</td><td><input type="text" name="name"></td>
@@ -80,7 +105,7 @@ $(function(){
 						</tr>
 					</table>
 				</form>
-				<button id="btn-fetch">가져오기</button>
+				<!--<button id="btn-fetch">가져오기</button>-->
 				<ul id="list">
 
 				</ul>

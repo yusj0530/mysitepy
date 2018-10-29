@@ -1,3 +1,4 @@
+from django.forms import model_to_dict
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 
@@ -61,3 +62,16 @@ def api_list(request):
     data = {'result' : results_list}
 
     return JsonResponse(data)
+
+def api_add(request):
+    guestbook = Guestbook()
+
+    guestbook.name = request.GET['name']
+    guestbook.password = request.GET['pass']
+    guestbook.content = request.GET['content']
+
+    guestbook.save()
+
+    response = {'result' : 'success', 'data': model_to_dict(guestbook) }
+
+    return JsonResponse(response)
