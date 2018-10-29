@@ -16,7 +16,7 @@ var render = function(guestbook, mode){
 					'<tr><td colspan="4">'+ guestbook.content+'</td></tr>'+
 					'</table><br></li>';
 	if(mode == true){
-		$("#list").prepend(htmls)
+		$("#list").prepend(htmls);
 	}else {
 		$("#list").append(htmls);
 	}
@@ -80,7 +80,7 @@ $(function(){
 			 		 "&content="+ content +
 			 		 "&csrfmiddlewaretoken=" +$("input[name='csrfmiddlewaretoken']").val(),
 			success: function(response){
-				render(response, true)
+				render(response.data, true)
 				//폼 지우기
 				$("#form-add")[0].reset()
 
